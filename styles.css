@@ -1,0 +1,236 @@
+:root {
+    --bg: #0B0B12;
+    --card: #11121A;
+    --muted: #8B90A6;
+    --text: #F5F6FB;
+    --primary: #6D4AFF;
+    --primary-hover: #5B3CF0;
+    --border: #232435;
+    --radius: 12px;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    color: var(--text);
+    background: radial-gradient(1200px 600px at 50% -200px, rgba(109, 74, 255, 0.15), transparent), var(--bg);
+}
+
+.container {
+    width: min(1400px, 92%);
+    margin-inline: auto;
+}
+
+/* --- 2. Header --- */
+.site-header {
+    position: sticky;
+    top: 0;
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--border);
+    background: rgba(11, 11, 18, 0.7);
+    z-index: 50;
+    padding: 12px 0;
+}
+
+.header-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-weight: 700;
+    font-size: 20px;
+}
+
+.logo {
+    height: 32px;
+    width: 32px;
+    border-radius: 8px;
+    background: linear-gradient(135deg, var(--primary), #B794FF);
+}
+
+.nav {
+    display: flex;
+    gap: 12px;
+}
+
+/* --- 3. Hero Section --- */
+.hero {
+    text-align: center;
+    padding: 80px 0;
+}
+
+.hero h1 {
+    font-size: clamp(40px, 6vw, 72px);
+    line-height: 1.1;
+    max-width: 800px;
+    margin: 0 auto 16px;
+}
+
+.hero p {
+    font-size: 18px;
+    color: var(--muted);
+    max-width: 650px;
+    margin: 0 auto 32px;
+}
+
+.hero-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+}
+
+/* --- 4. IDE Section --- */
+.ide-section {
+    padding-bottom: 80px;
+}
+
+.controls {
+    display: grid;
+    grid-template-columns: 1fr auto auto;
+    gap: 16px;
+    align-items: center;
+    margin-bottom: 16px;
+}
+
+.field { display: flex; flex-direction: column; gap: 6px; }
+.field select { background: var(--card); border: 1px solid var(--border); color: var(--text); padding: 10px 12px; border-radius: 8px; font-size: 14px; }
+.buttons { display: flex; gap: 8px; }
+
+.runtime {
+    justify-self: end;
+    color: var(--muted);
+    font-size: 13px;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: 1.2fr 0.8fr;
+    gap: 16px;
+}
+
+.panel {
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    background: var(--card);
+    overflow: hidden;
+}
+
+.panel-stack {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+/* --- 5. Component Styles (Buttons, Tabs, Editor) --- */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    text-decoration: none;
+    border: 1px solid var(--border);
+    background: var(--card);
+    color: var(--text);
+    padding: 10px 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 150ms ease;
+}
+
+.btn:hover { filter: brightness(1.2); }
+.btn.primary { background: var(--primary); border-color: transparent; }
+.btn.primary:hover { background: var(--primary-hover); }
+.btn.outline { background: transparent; }
+.btn.large { padding: 14px 24px; font-size: 16px; }
+.btn[disabled] { opacity: 0.5; cursor: not-allowed; filter: none; }
+
+.tabs { display: flex; gap: 8px; padding: 10px; border-bottom: 1px solid var(--border); background: rgba(255, 255, 255, 0.02); }
+.tab { appearance: none; border: none; background: transparent; color: var(--muted); font-weight: 600; padding: 8px 12px; border-radius: 8px; cursor: pointer; }
+.tab.active { color: var(--text); background: rgba(255, 255, 255, 0.04); }
+.tab-panel { display: none; }
+.tab-panel.active { display: block; }
+
+.editor { display: grid; grid-template-columns: 48px 1fr; min-height: 420px; }
+.gutter { margin: 0; padding: 12px; background: #0F1018; color: var(--muted); text-align: right; border-right: 1px solid var(--border); overflow: hidden; line-height: 1.6; font-size: 13px; font-family: ui-monospace, monospace; }
+#code, #stdin { border: none; color: var(--text); background: transparent; padding: 12px; font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; font-size: 14px; resize: vertical; outline: none; width: 100%; }
+#code { min-height: 420px; }
+#stdin { min-height: 200px; }
+
+.log { padding: 12px; margin: 0; white-space: pre-wrap; font-family: ui-monospace, monospace; font-size: 13px; min-height: 100px; max-height: 260px; overflow: auto; }
+.log.error { color: #ff6b6b; }
+
+.panel-head, .panel-footer { padding: 12px 16px; }
+.panel-head { display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid var(--border); }
+.panel-footer { border-top: 1px solid var(--border); }
+.muted { color: var(--muted); }
+.small { font-size: 13px; }
+
+.visualiser { height: 180px; display: flex; gap: 6px; align-items: flex-end; padding: 16px; }
+.bar { flex: 1; background: linear-gradient(180deg, #B794FF, var(--primary)); border-radius: 6px; transition: height 220ms ease, filter 200ms ease; filter: saturate(0.8); }
+.bar.active { filter: saturate(1.4) brightness(1.2); }
+
+/* --- 6. Features & Footer --- */
+.features {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    padding: 40px 0 80px;
+}
+
+.feature-card {
+    border: 1px solid var(--border);
+    background: var(--card);
+    padding: 24px;
+    border-radius: var(--radius);
+}
+
+.feature-card h3 {
+    font-size: 18px;
+    margin-bottom: 8px;
+}
+
+.feature-card p {
+    color: var(--muted);
+    line-height: 1.6;
+}
+
+.site-footer {
+    border-top: 1px solid var(--border);
+}
+
+.footer-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 24px 0;
+    color: var(--muted);
+    font-size: 14px;
+}
+
+.footer-links { display: flex; gap: 24px; }
+.footer-links a { color: var(--muted); text-decoration: none; }
+.footer-links a:hover { color: var(--text); }
+
+/* --- 7. Responsive Adjustments --- */
+@media (max-width: 980px) {
+    .grid, .features {
+        grid-template-columns: 1fr;
+    }
+    .controls {
+        grid-template-columns: 1fr auto;
+    }
+    .runtime {
+        grid-column: 1 / -1;
+        justify-self: start;
+        margin-top: -8px;
+    }
+}

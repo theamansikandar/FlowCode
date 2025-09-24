@@ -1,0 +1,273 @@
+/* --- 1. Global Styles & Variables --- */
+:root {
+    --bg: #0B0B12;
+    --card: #11121A;
+    --muted: #8B90A6;
+    --text: #F5F6FB;
+    --primary: #6D4AFF;
+    --primary-hover: #5B3CF0;
+    --border: #232435;
+    --radius: 12px;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    color: var(--text);
+    background: var(--bg);
+}
+
+.container {
+    width: min(1400px, 92%);
+    margin-inline: auto;
+}
+
+/* --- 2. Header & Footer --- */
+.site-header {
+    position: sticky;
+    top: 0;
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--border);
+    background: rgba(11, 11, 18, 0.7);
+    z-index: 50;
+    padding: 12px 0;
+}
+.header-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-weight: 700;
+    font-size: 20px;
+}
+.logo {
+    height: 32px;
+    width: 32px;
+    border-radius: 8px;
+    background: linear-gradient(135deg, var(--primary), #B794FF);
+}
+.site-footer {
+    border-top: 1px solid var(--border);
+    padding: 24px 0;
+    color: var(--muted);
+    font-size: 14px;
+}
+.footer-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+/* --- 3. Hero Section --- */
+.hero {
+    text-align: center;
+    padding: 80px 0;
+}
+.hero h1 {
+    font-size: clamp(40px, 6vw, 72px);
+    line-height: 1.1;
+    max-width: 800px;
+    margin: 0 auto 16px;
+}
+.hero p {
+    font-size: 18px;
+    color: var(--muted);
+    max-width: 650px;
+    margin: 0 auto 32px;
+}
+.hero-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+}
+
+/* --- 4. IDE Section --- */
+.ide-section {
+    padding-bottom: 80px;
+}
+.controls {
+    display: grid;
+    grid-template-columns: 1fr auto auto;
+    gap: 16px;
+    align-items: center;
+    margin-bottom: 16px;
+}
+.grid {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr;
+    gap: 16px;
+}
+.panel {
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    background: var(--card);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+.panel-stack {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+.panel-head, .panel-footer {
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+}
+.panel-footer {
+    border-top: 1px solid var(--border);
+    border-bottom: none;
+}
+
+/* --- 5. Component Styles (Buttons, Tabs, Editor) --- */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 16px;
+    border: 1px solid var(--border);
+    background: var(--card);
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    color: var(--text);
+    text-decoration: none;
+    transition: all 150ms ease;
+    font-family: inherit;
+    font-size: 14px;
+}
+.btn:hover { filter: brightness(1.2); }
+.btn.primary { background: var(--primary); border-color: transparent; }
+.btn.primary:hover { background: var(--primary-hover); }
+.btn.outline { background: transparent; }
+.btn.large { padding: 14px 24px; font-size: 16px; }
+.btn[disabled] { opacity: 0.5; cursor: not-allowed; filter: none; }
+.btn.small { padding: 6px 12px; font-size: 13px; }
+
+.tabs { display: flex; border-bottom: 1px solid var(--border); }
+.tab {
+    padding: 12px 16px;
+    cursor: pointer;
+    background: transparent;
+    border: none;
+    color: var(--muted);
+    font-family: inherit;
+    font-weight: 600;
+}
+.tab.active { color: var(--text); background: rgba(255, 255, 255, 0.04); }
+.tab-panels { flex-grow: 1; }
+.tab-panel { display: none; height: 100%; }
+.tab-panel.active { display: block; }
+
+.field { display: flex; flex-direction: column; gap: 6px; font-size: 13px; color: var(--muted); }
+select {
+    background-color: var(--card);
+    color: var(--text);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 8px 12px;
+    font-family: inherit;
+}
+
+.buttons { display: flex; gap: 8px; }
+.runtime { justify-self: end; color: var(--muted); font-size: 13px; }
+.muted { color: var(--muted); }
+.small { font-size: 13px; }
+
+.code-input, .stdin-input {
+    width: 100%;
+    height: 100%;
+    background: var(--card);
+    border: none;
+    color: var(--text);
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 15px;
+    padding: 16px;
+    resize: none;
+    line-height: 1.5em;
+}
+.code-input:focus, .stdin-input:focus { outline: none; }
+.gutter {
+    background: #181A24;
+    padding: 16px 0;
+    text-align: right;
+    color: var(--muted);
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 15px;
+    line-height: 1.5em;
+    padding-right: 12px;
+    user-select: none;
+}
+.log {
+    padding: 16px;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 14px;
+    white-space: pre-wrap;
+    word-break: break-all;
+    height: 100%;
+    overflow-y: auto;
+}
+.log.error { color: #ff6b6b; }
+.visualiser { height: 100%; display: flex; gap: 6px; align-items: flex-end; padding: 16px; }
+.bar { flex-grow: 1; background: var(--primary); border-radius: 4px 4px 0 0; }
+.bar.active { filter: saturate(1.4) brightness(1.2); }
+
+/* --- NEW STYLES FOR AI EXPLAINER --- */
+.ai-explanation-content {
+    padding: 16px;
+    min-height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    flex-grow: 1;
+}
+#explanation-text {
+    line-height: 1.6;
+    color: var(--muted);
+}
+.ai-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.editor-container {
+    position: relative;
+    display: grid; 
+    grid-template-columns: 48px 1fr; 
+    height: 100%;
+}
+#highlight-layer {
+    position: absolute;
+    top: 0;
+    left: 48px; /* Offset by gutter width */
+    width: calc(100% - 48px);
+    height: 100%;
+    pointer-events: none;
+    z-index: 1;
+}
+.line-highlight {
+    position: absolute;
+    width: 100%;
+    height: 1.5em;
+    background-color: rgba(109, 74, 255, 0.2);
+    border-left: 3px solid var(--primary);
+}
+.code-input {
+    background-color: transparent;
+    z-index: 2;
+    position: relative;
+}
