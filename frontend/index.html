@@ -3,67 +3,116 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FlowCode - Online Code Visualizer</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>FlowCode - AI Code Visualizer</title>
+    <link rel="stylesheet" href="styles.css"> 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
-
     <header class="site-header">
         <div class="container header-inner">
-            <div class="brand">
-                <span>FlowCode</span>
-            </div>
-            <div class="nav">
-            </div>
+            <div class="brand"><div class=""></div><span>FlowCode</span></div>
+            <div class="nav"><a href="#ide" class="btn outline">Open IDE</a></div>
         </div>
     </header>
 
     <main>
         <section class="hero container">
-            <h1>Online IDE, Compiler, and Visualizer</h1>
-            <p>Run C++, Python, and JavaScript right in your browser. Provide custom input, see live output, and watch step-by-step animations for algorithms.</p>
+            <h1>AI Powered IDE, Compiler, and Visualizer</h1>
+            <p>Write custom code, get AI explanations, and visualize classic algorithms step by step.</p>
             <div class="hero-buttons">
-                <button class="btn primary large">Start Coding</button>
-                <button class="btn outline large">Explore Features</button>
+                <a href="#ide" class="btn primary large">Start Coding</a>
+            </div>
+            
+            <div class="waves" aria-hidden="true">
+                <svg class="wave wave--slow" viewBox="0 0 2880 160" preserveAspectRatio="none">
+                    <defs>
+                        <linearGradient id="waveGradientA" x1="0" y1="0" x2="1" y2="0">
+                            <stop offset="0%" stop-color="#60a5fa" />
+                            <stop offset="50%" stop-color="#a78bfa" />
+                            <stop offset="100%" stop-color="#f472b6" />
+                        </linearGradient>
+                        <filter id="shadowA">
+                            <feDropShadow dx="0" dy="0" stdDeviation="6" flood-color="rgba(99,102,241,0.35)"/>
+                        </filter>
+                    </defs>
+                    <g filter="url(#shadowA)">
+                        <path d="M0,80 C 160,20 320,140 480,80 S 800,140 960,80 S 1280,20 1440,80 S 1760,140 1920,80 S 2240,20 2400,80 S 2720,140 2880,80"
+                            fill="none" stroke="url(#waveGradientA)" stroke-width="4" stroke-linecap="round"/>
+                    </g>
+                </svg>
+
+                <svg class="wave wave--fast" viewBox="0 0 2880 160" preserveAspectRatio="none">
+                    <defs>
+                        <linearGradient id="waveGradientB" x1="0" y1="0" x2="1" y2="0">
+                            <stop offset="0%" stop-color="#38bdf8" />
+                            <stop offset="50%" stop-color="#818cf8" />
+                            <stop offset="100%" stop-color="#c084fc" />
+                        </linearGradient>
+                    </defs>
+                    <path d="M0,96 C 160,36 320,156 480,96 S 800,156 960,96 S 1280,36 1440,96 S 1760,156 1920,96 S 2240,36 2400,96 S 2720,156 2880,96"
+                        fill="none" stroke="url(#waveGradientB)" stroke-width="3" stroke-linecap="round"/>
+                </svg>
+                <div class="waves__fade"></div>
             </div>
         </section>
 
         <section id="ide" class="ide-section container">
             <div class="controls">
                 <label class="field">
+                    <span>Algorithm to Visualize</span>
+                    <select id="algo-select">
+                        <option value="none">-- Select an Algorithm --</option>
+                        <option value="bubble_sort">Bubble Sort</option>
+                        <option value="binary_search">Binary Search</option>
+                    </select>
+                </label>
+                <label class="field">
                     <span>Language</span>
-                    <select id="lang">
+                    <select id="lang-select">
                         <option value="python">Python</option>
                         <option value="cpp">C++</option>
                         <option value="javascript">JavaScript</option>
                     </select>
                 </label>
                 <div class="buttons">
-                    <button id="run" class="btn primary">Run</button>
-                    <button id="stop" class="btn" disabled>Stop</button>
-                    <button id="clear" class="btn outline">Clear</button>
+                    <button id="run-btn" class="btn">Run Code</button>
+                    <button id="visualize-btn" class="btn primary">Visualize</button>
+                    <button id="explain-btn" class="btn">Explain Code</button>
                 </div>
                 <div class="runtime">Runtime: <span id="runtime-version">loading…</span></div>
             </div>
 
             <div class="grid">
-                <div class="panel">
-                    <div class="tabs">
-                        <button class="tab active" data-tab="editor">Editor</button>
-                        <button class="tab" data-tab="input">Custom Input</button>
-                    </div>
-                    <div class="tab-panels">
-                        <div class="tab-panel active" id="panel-editor">
-                            <div class="editor">
-                                <pre class="gutter" id="gutter"></pre>
-                                <textarea id="code" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off"></textarea>
+                <div class="panel-stack">
+                    <div class="panel">
+                        <div class="tabs">
+                            <button class="tab active" data-tab="editor">Editor</button>
+                        </div>
+                        <div class="tab-panels">
+                            <div class="tab-panel active" id="panel-editor">
+                                <div class="editor-container">
+                                    <pre class="gutter" id="gutter"></pre>
+                                    <div class="code-area">
+                                        <div id="highlight-layer"></div>
+                                        <textarea id="code-input" class="code-input" spellcheck="false" placeholder="Enter your custom code here, or select an algorithm to visualize..."></textarea>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                        <div class="tab-panel" id="panel-input">
-                            <textarea id="stdin" placeholder="Enter stdin for your program…"></textarea>
+                    </div>
+                    <div class="panel" id="ai-panel">
+                        <div class="panel-head">
+                            <strong>AI Code Explainer</strong>
+                        </div>
+                        <div class="ai-explanation-content">
+                            <p id="explanation-text">Write some code and click "Explain Code" to get a breakdown.</p>
+                        </div>
+                        <div class="panel-footer ai-footer">
+                            <button id="prev-step-btn" class="btn outline small" disabled>Previous</button>
+                            <span id="step-counter" class="small muted">Step 0 / 0</span>
+                            <button id="next-step-btn" class="btn outline small" disabled>Next</button>
                         </div>
                     </div>
                 </div>
@@ -75,52 +124,29 @@
                             <button class="tab" data-tab="errors">Errors</button>
                         </div>
                         <div class="tab-panels">
-                            <div class="tab-panel active" id="panel-output">
-                                <pre id="stdout" class="log"></pre>
-                            </div>
-                            <div class="tab-panel" id="panel-errors">
-                                <pre id="stderr" class="log error"></pre>
-                            </div>
+                            <div class="tab-panel active" id="panel-output"><pre id="stdout-log" class="log"></pre></div>
+                            <div class="tab-panel" id="panel-errors"><pre id="stderr-log" class="log error"></pre></div>
                         </div>
                     </div>
                     <div class="panel">
                         <div class="panel-head">
-                            <strong>Visualizer</strong>
-                            <span class="muted">Parses lines starting with __VIS__:</span>
+                            <strong>Algorithm Visualizer</strong>
+                            <span class="muted small" id="vis-step-counter"></span>
                         </div>
-                        <div class="visualiser" id="visualiser"></div>
-                        <div id="vis-step" class="muted small panel-footer">No visualization data yet.</div>
+                        <div class="visualiser" id="visualizer-panel"></div>
                     </div>
                 </div>
-            </div>
-        </section>
-
-        <section class="features container">
-            <div class="feature-card">
-                <h3>Multi-language</h3>
-                <p>Choose from C++, Python, or JavaScript with on-demand cloud runtimes.</p>
-            </div>
-            <div class="feature-card">
-                <h3>Custom Input & Output</h3>
-                <p>Provide stdin, then inspect stdout and errors in a clean interface.</p>
-            </div>
-            <div class="feature-card">
-                <h3>Algorithm Visualiser</h3>
-                <p>Use simple "__VIS__" prints in your code to animate intermediate steps.</p>
             </div>
         </section>
     </main>
 
     <footer class="site-footer">
         <div class="container footer-inner">
-            <div>© <span id="year">2025</span> CodeCanvas. All rights reserved.</div>
-            <div class="footer-links">
-                <a href="#">Privacy</a>
-                <a href="#">Terms</a>
-            </div>
+            <span>&copy; <span id="year">2025</span> FlowCode AI</span>
         </div>
     </footer>
-
-    <script src="App.js"></script>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+    <script src="main.js" type="module"></script>
 </body>
 </html>
