@@ -1,5 +1,4 @@
-//AIzaSyBCGOrHhEjAcLoMGxO7H1RxqjGZamhWyEs
-
+require('dotenv').config(); 
 const express = require("express");
 const cors = require("cors");
 const Docker = require("dockerode");
@@ -11,8 +10,7 @@ const app = express();
 const docker = new Docker();
 const port = 8080;
 
-
-const GEMINI_API_KEY = "AIzaSyBCGOrHhEjAcLoMGxO7H1RxqjGZamhWyEs";
+const GEMINI_API_KEY = process.env.GEMINI_API_KEY;
 
 app.use(cors());
 app.use(express.json());

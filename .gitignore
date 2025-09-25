@@ -25,3 +25,4 @@ Thumbs.db
 # Editor-specific folders
 .vscode/
 .idea/
+.env
